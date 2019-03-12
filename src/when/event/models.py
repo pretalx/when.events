@@ -40,10 +40,12 @@ class Event(models.Model):
 
     hashtag = models.CharField(max_length=50, null=True)
     social_media_accounts = models.TextField(null=True)
+    tooling = models.TextField(null=True)
 
     tags = models.TextField(null=True)  # Contains topics, locations, …
 
     last_updated = models.DateTimeField(null=True)
+    last_response = models.TextField(null=True)
     state = models.CharField(
         choices=(
             ("new", "new"),

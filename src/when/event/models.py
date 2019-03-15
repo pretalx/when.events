@@ -10,6 +10,8 @@ class Event(models.Model):
     data related to an event, and is pretty much a direct mirror of the
     when.events API. Fields are influenced by the schema.org Event model,
     but extended and modified to fit our purposes.
+    All fields except the URL are nullable, since they will be empty when
+    the URL is added in the first place.
     """
 
     name = models.CharField(max_length=200, null=True, verbose_name=_("Name"))

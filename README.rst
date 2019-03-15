@@ -10,7 +10,8 @@ Event submission
 ================
 
 To submit an event, gather all relevant event metadata in the following format
-and put it online in a stable location::
+(which is inspired by past experience and https://schema.org/Event), and put it
+online in a stable location::
 
    {TBD}
 

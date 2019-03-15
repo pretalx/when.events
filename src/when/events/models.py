@@ -73,6 +73,8 @@ class Event(models.Model):
         ),
         verbose_name=_("State"),
     )
+    needs_review = models.BooleanField(default=True)
+    was_reviewed = models.BooleanField(default=False)
 
 
 class UserManager(BaseUserManager):

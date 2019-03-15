@@ -12,15 +12,18 @@ class Event(models.Model):
     but extended and modified to fit our purposes.
     """
 
-    name = models.CharField(max_length=200, null=True)
-    short_name = models.SlugField(null=True, unique=True)
-    url = models.URLField()
+    name = models.CharField(max_length=200, null=True, verbose_name=_("Name"))
+    short_name = models.SlugField(null=True, unique=True, verbose_name=_("Short name"))
+    url = models.URLField(verbose_name=_("URL"))
 
-    start_date = models.DateField(null=True)
-    end_date = models.DateField(null=True)
-    cfp_deadline = models.DateTimeField(null=True)
+    start_date = models.DateField(null=True, verbose_name=_("Start date"))
+    end_date = models.DateField(null=True, verbose_name=_("End date"))
+    cfp_deadline = models.DateTimeField(null=True, verbose_name=_("CfP deadline"))
     timezone = models.CharField(
-        choices=[(tz, tz) for tz in pytz.common_timezones], max_length=30, default="UTC"
+        choices=[(tz, tz) for tz in pytz.common_timezones],
+        max_length=30,
+        default="UTC",
+        verbose_name=_("Timezone"),
     )
 
     organizer = models.CharField(max_length=200, null=True, verbose_name=_("Organizer"))
@@ -60,5 +63,6 @@ class Event(models.Model):
             ("ok", "ok"),
             ("unreachable", "unreachable"),
             ("error", "error"),
-        )
+        ),
+        verbose_name=_("State"),
     )

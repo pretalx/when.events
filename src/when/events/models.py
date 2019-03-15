@@ -49,11 +49,11 @@ class Event(models.Model):
     color = models.CharField(max_length=6, null=True, verbose_name=_("Color"))
 
     home_url = models.URLField(null=True, verbose_name=_("Home page"))
-    ticket_url = models.URLField(null=True, verbose_name=_("Ticket shop"))
-    program_url = models.URLField(null=True, verbose_name=_("Program"))
+    tickets_url = models.URLField(null=True, verbose_name=_("Ticket shop"))
+    schedule_url = models.URLField(null=True, verbose_name=_("Program"))
     cfp_url = models.URLField(null=True, verbose_name=_("CfP"))
     coc_url = models.URLField(null=True, verbose_name=_("CoC"))
-    recording_url = models.URLField(null=True, verbose_name=_("Recordings"))
+    recordings_url = models.URLField(null=True, verbose_name=_("Recordings"))
     logo_url = models.URLField(null=True, verbose_name=_("Logo URL"))
 
     hashtag = models.CharField(max_length=50, null=True, verbose_name=_("Hashtag"))
@@ -62,6 +62,7 @@ class Event(models.Model):
 
     tags = models.TextField(null=True)  # Contains topics, locations, …
 
+    ###### INTERNAL FIELDS ######
     last_updated = models.DateTimeField(null=True)
     last_response = FallbackJSONField(null=True)
     state = models.CharField(

@@ -1,0 +1,160 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://when.events/0.1/event.schema.json",
+  "title": "Event",
+  "description": "An event, e.g. a conference or a convention",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "string",
+      "const": "0.1",
+      "description": "The version of the event schema specification used."
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The complete name of this event, as used on official conference matieral. Must not be empty.",
+      "examples": ["EventCon", "Serious Research Conference"]
+    },
+    "shortName": {
+      "type": "string",
+      "minLength": 3,
+      "pattern": "[A-z0-9-]+",
+      "description": "A short form of the event name, fit for use in URLs. Should be reasonably unique, e.g. by incorporating the event year or date. Will be considered to be case insensitive. Has to be at least 3 characters long.",
+      "examples": ["eventcon19", "src20"]
+    },
+    "cfpDeadline": {
+      "type": "string",
+      "format": "date",
+      "description": "If the event has published a Call for Papers, this field may contain the deadline.",
+      "examples": ["2019-12-12", "2020-04-01"]
+    },
+    "timezone": {
+      "type": "string",
+      "description": "The timezone to be assumed for event dates. Must be a valid timezone name from the tz database.",
+      "examples": ["Europe/Berlin", "UTC"]
+    },
+    "organizer": {
+      "type": "string",
+      "description": "The name of the entity organizing this event.",
+      "examples": ["EventCon Inc", "Business Research Org"]
+    },
+    "organizer": {
+      "type": "string",
+      "description": "The name of the entity organizing this event.",
+      "examples": ["EventCon Inc", "Business Research Org"]
+    },
+    "email": {
+      "type": "string",
+      "format": "idn-email",
+      "description": "The email address to be used as a first point of contact.",
+      "examples": ["organizer@example.com"]
+    },
+    "isAccessibleForFree": {
+      "type": "boolean",
+      "description": "If your event is accessible for free, you can flag it here.",
+      "default": false
+    },
+    "languages": {
+      "type": "array",
+      "items": {
+          "type": "string"
+      },
+      "uniqueItems": true,
+      "description": "A list of languages actively used at the event. Should use ISO-639 language tags.",
+      "examples": [["en", "de"], ["en"]]
+    },
+    "maximumAttendeeCapacity": {
+      "type": "integer",
+      "exclusiveMinimum": 1,
+      "description": "How many people you will admit at a maximum.",
+      "examples": [2000]
+    },
+    "location": {
+      "type": "string",
+      "description": "The location of your venue. Recommended to be a string that results in a location in nominatim.openstreetmap.org.",
+      "examples": ["BCC, Berlin, Germany", "Sydney Opera House"]
+    },
+    "coordinates": {
+      "type": "array",
+      "items": {
+          "type": "number"
+      },
+      "minItems": 2,
+      "maxItems": 2,
+      "description": "The geocoordinates of your venue.",
+      "examples": [[52.52067985, 13.4164507938843], [-33.8569129, 151.215231818691]]
+    },
+    "description": {
+      "type": "string",
+      "description": "A longer description of your event. May be interpreted using markdown syntax."
+    },
+    "color": {
+      "type": "string",
+      "pattern": "#[0-9a-f]{6}",
+      "description": "The event color as a six-digit hexadecimal string.",
+      "examples": ["#00ff00", "#cccccc"]
+    },
+    "urls": {
+      "type": "object",
+      "properties": {
+          "home": {"type": "string", "format": "iri"},
+          "tickets": {"type": "string", "format": "iri"},
+          "schedule": {"type": "string", "format": "iri"},
+          "cfp": {"type": "string", "format": "iri"},
+          "coc": {"type": "string", "format": "iri"},
+          "recordings": {"type": "string", "format": "iri"},
+          "logo": {"type": "string", "format": "iri"},
+          "organizer": {"type": "string", "format": "iri"}
+      },
+      "required": ["home"],
+      "additionalProperties": {
+          "type": "string",
+          "format": "iri"
+      },
+      "description": "URLs associated with this event. The given properties (home, tickets, schedule, cfp, coc, recordings, logo, organizer) are supported, but you may add your own.",
+      "examples": [{"home": "https://example.org", "tickets": "https://example.org/tickets"}]
+    },
+    "hashtag": {
+      "type": "string",
+      "pattern": "#[A-z0-9]+",
+      "description": "The hashtag used on social media.",
+      "examples": ["#eventcon", "#src19"]
+    },
+    "socialMediaAccounts": {
+      "type": "object",
+      "properties": {
+          "twitter": {"type": "string", "format": "iri"},
+          "mastodon": {"type": "string", "format": "iri"},
+          "instagram": {"type": "string", "format": "iri"}
+      },
+      "additionalProperties": {
+          "type": "string",
+          "format": "iri"
+      },
+      "description": "URLs for social media accounts associated with this event. The given properties (twitter, mastodon, instagram) are supported, but you may add your own.",
+      "examples": [{"twitter": "https://twitter.com/robots.txt"}]
+    },
+    "tooling": {
+      "type": "object",
+      "properties": {
+          "tickets": {"type": "string"},
+          "schedule": {"type": "string"},
+          "website": {"type": "string"}
+      },
+      "additionalProperties": {"type": "string"},
+      "description": "Services and tools used by this event. The given properties (tickets, schedule, website) are supported, but you may add your own.",
+      "examples": [{"tickets": "pretix", "schedule": "pretalx", "website": "hugo"}]
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+          "type": "string"
+      },
+      "uniqueItems": true,
+      "description": "A list of tags associated with this event.",
+      "examples": [["software", "python", "europe", "denmark"]]
+    }
+  },
+  "required": [ "version", "name", "shortName", "startDate", "endDate", "urls" ]
+}

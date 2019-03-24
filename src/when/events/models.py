@@ -37,7 +37,7 @@ class Event(models.Model):
     is_accessible_for_free = models.BooleanField(
         default=False, verbose_name=_("Is this event free?")
     )
-    languages = models.CharField(max_length=200, null=True, verbose_name=_("Languages"))
+    languages = models.CharField(max_length=200, null=True, verbose_name=_("Languages"))  # Format: ,en,de,. Use 'language_list' property for access.
     maximum_attendee_capacity = models.PositiveIntegerField(
         null=True, verbose_name=_("Maximum attendee capacity")
     )
@@ -56,12 +56,13 @@ class Event(models.Model):
     social_media_accounts = FallbackJSONField(null=True, default=dict)
     tooling = FallbackJSONField(null=True)
 
-    tags = models.TextField(null=True)  # Contains topics, locations, …
+    tags = models.TextField(null=True)  # Contains topics, locations, …. Use tag_list to access it.
 
     ###### INTERNAL FIELDS ######
     last_updated = models.DateTimeField(null=True)
     last_response = FallbackJSONField(null=True)
     state = models.CharField(
+        max_length=11,
         choices=(
             ("new", "new"),
             ("ok", "ok"),
@@ -72,6 +73,22 @@ class Event(models.Model):
     )
     needs_review = models.BooleanField(default=True)
     was_reviewed = models.BooleanField(default=False)
+
+    @property
+    def language_list(self):
+        return (self.lanugages or '').strip(',').split(',')
+
+    @language_list.setter
+    def language_list(self, value):
+        self.languages = ',' + ','.join(value) + ','
+
+    @property
+    def tag_list(self):
+        return (self.tags or '').strip(',').split(',')
+
+    @tag_list.setter
+    def tag_list(self, value):
+        self.tags = ',' + ','.join(value) + ','
 
 
 class UserManager(BaseUserManager):

@@ -93,7 +93,7 @@
       "minItems": 2,
       "maxItems": 2,
       "description": "The geocoordinates of your venue.",
-      "examples": [[52.52067985, 13.4164507938843], [-33.8569129, 151.215231818691]]
+      "examples": [["52.52067985", "13.4164507938843"], ["-33.8569129", "151.215231818691"]]
     },
     "description": {
       "type": "string",

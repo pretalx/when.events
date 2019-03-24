@@ -37,6 +37,12 @@
       "description": "The event's end date.",
       "examples": ["2019-12-12", "2020-04-01"]
     },
+    "cfpDeadline": {
+      "type": "string",
+      "format": "date-time",
+      "description": "If the event has published a Call for Papers, this field may contain the deadline.",
+      "examples": ["2019-12-12T20:00:00+00:00", "2020-04-01T00:00:00+02:00"]
+    },
     "timezone": {
       "type": "string",
       "description": "The timezone to be assumed for event dates. Must be a valid timezone name from the tz database.",

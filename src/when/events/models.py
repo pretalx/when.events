@@ -21,7 +21,6 @@ class Event(models.Model):
 
     name = models.CharField(max_length=200, null=True, verbose_name=_("Name"))
     short_name = models.SlugField(null=True, unique=True, verbose_name=_("Short name"))
-    url = models.URLField(verbose_name=_("URL"))
 
     start_date = models.DateField(null=True, verbose_name=_("Start date"))
     end_date = models.DateField(null=True, verbose_name=_("End date"))
@@ -48,16 +47,10 @@ class Event(models.Model):
     description = models.TextField(null=True, verbose_name=_("Description"))
     color = models.CharField(max_length=6, null=True, verbose_name=_("Color"))
 
-    home_url = models.URLField(null=True, verbose_name=_("Home page"))
-    tickets_url = models.URLField(null=True, verbose_name=_("Ticket shop"))
-    schedule_url = models.URLField(null=True, verbose_name=_("Program"))
-    cfp_url = models.URLField(null=True, verbose_name=_("CfP"))
-    coc_url = models.URLField(null=True, verbose_name=_("CoC"))
-    recordings_url = models.URLField(null=True, verbose_name=_("Recordings"))
-    logo_url = models.URLField(null=True, verbose_name=_("Logo URL"))
+    urls = FallbackJSONField(null=True, default=dict)
 
     hashtag = models.CharField(max_length=50, null=True, verbose_name=_("Hashtag"))
-    social_media_accounts = FallbackJSONField(null=True)
+    social_media_accounts = FallbackJSONField(null=True, default=dict)
     tooling = FallbackJSONField(null=True)
 
     tags = models.TextField(null=True)  # Contains topics, locations, …

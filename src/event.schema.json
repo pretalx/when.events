@@ -20,8 +20,8 @@
     "shortName": {
       "type": "string",
       "minLength": 3,
-      "pattern": "[A-z0-9-]+",
       "maxLength": 50,
+      "pattern": "^[A-z0-9-]+$",
       "description": "A short form of the event name, fit for use in URLs. Should be reasonably unique, e.g. by incorporating the event year or date. Will be considered to be case insensitive. Has to be at least 3 characters long.",
       "examples": ["eventcon19", "src20"]
     },
@@ -80,7 +80,8 @@
     "coordinates": {
       "type": "array",
       "items": {
-          "type": "number"
+          "type": "string",
+          "pattern": "^-?[0-9]{1,3}.[0-9]+$"
       },
       "minItems": 2,
       "maxItems": 2,
@@ -93,7 +94,7 @@
     },
     "color": {
       "type": "string",
-      "pattern": "#[0-9a-f]{6}",
+      "pattern": "^#[0-9a-f]{6}$",
       "description": "The event color as a six-digit hexadecimal string.",
       "examples": ["#00ff00", "#cccccc"]
     },
@@ -119,7 +120,7 @@
     },
     "hashtag": {
       "type": "string",
-      "pattern": "#[A-z0-9]+",
+      "pattern": "^#[A-z0-9]+$",
       "description": "The hashtag used on social media.",
       "examples": ["#eventcon", "#src19"]
     },

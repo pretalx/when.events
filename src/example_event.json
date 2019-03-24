@@ -1,16 +1,16 @@
 {
     "version": "0.1",
     "name": "Open Conference",
-    "short_name": "opencon",
-    "start_date": "2019-05-20",
-    "end_date": "2019-05-23",
-    "cfp_deadline": "2019-01-20",
+    "shortName": "opencon",
+    "startDate": "2019-05-20",
+    "endDate": "2019-05-23",
+    "cfpDeadline": "2019-01-20",
     "timezone": "Europe/Berlin",
     "organizer": "Open Conference inc.",
     "email": "orga@example.org",
-    "is_accessible_for_free": false,
-    "languages": "en",
-    "maximum_attendee_capacity": 2000,
+    "isAccessibleForFree": false,
+    "languages": ["en"],
+    "maximumAttendeeCapacity": 2000,
     "location": "Venue Venue, Berlin",
     "description": "A longer text describing the event. You can use markdown here.",
     "color": "#abcdef",
@@ -24,7 +24,7 @@
         "logo": ""
     },
     "hashtag": "#yolocon",
-    "social_media_accounts": {
+    "socialMediaAccounts": {
         "twitter": "foo",
         "mastodon": "foo@foocon.social",
         "instagram": "foo125691"

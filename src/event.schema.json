@@ -25,10 +25,16 @@
       "description": "A short form of the event name, fit for use in URLs. Should be reasonably unique, e.g. by incorporating the event year or date. Will be considered to be case insensitive. Has to be at least 3 characters long.",
       "examples": ["eventcon19", "src20"]
     },
-    "cfpDeadline": {
+    "startDate": {
       "type": "string",
       "format": "date",
-      "description": "If the event has published a Call for Papers, this field may contain the deadline.",
+      "description": "The event's start date.",
+      "examples": ["2019-12-12", "2020-04-01"]
+    },
+    "endDate": {
+      "type": "string",
+      "format": "date",
+      "description": "The event's end date.",
       "examples": ["2019-12-12", "2020-04-01"]
     },
     "timezone": {

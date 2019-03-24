@@ -53,11 +53,6 @@
       "description": "The name of the entity organizing this event.",
       "examples": ["EventCon Inc", "Business Research Org"]
     },
-    "organizer": {
-      "type": "string",
-      "description": "The name of the entity organizing this event.",
-      "examples": ["EventCon Inc", "Business Research Org"]
-    },
     "email": {
       "type": "string",
       "format": "idn-email",

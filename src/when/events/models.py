@@ -43,7 +43,10 @@ class Event(models.Model):
     )
     location = models.CharField(
         max_length=200, null=True, verbose_name=_("Location")
-    )  # TODO: find better model
+    )
+    coordinates = models.CharField(
+        max_length=50, null=True, verbose_name=_('Coordinates')
+    )
     description = models.TextField(null=True, verbose_name=_("Description"))
     color = models.CharField(max_length=6, null=True, verbose_name=_("Color"))
 

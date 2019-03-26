@@ -7,7 +7,7 @@
   "properties": {
     "version": {
       "type": "string",
-      "const": "0.1",
+      "const": "0.1.0",
       "description": "The version of the event schema specification used."
     },
     "name": {

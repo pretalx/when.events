@@ -64,6 +64,7 @@ class Event(models.Model):
     tags = models.TextField(null=True)  # Contains topics, locations, …. Use tag_list to access it.
 
     ###### INTERNAL FIELDS ######
+    data_url = models.URLField()
     last_updated = models.DateTimeField(null=True)
     last_response = FallbackJSONField(null=True)
     state = models.CharField(
@@ -102,7 +103,7 @@ class Event(models.Model):
         pass
 
     def fetch(self):
-        response = requests.get(self.url)
+        response = requests.get(self.data_url)
         self.last_updated = now()
 
         def fail(error, state='error'):

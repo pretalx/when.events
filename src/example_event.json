@@ -12,7 +12,7 @@
     "languages": ["en"],
     "maximumAttendeeCapacity": 2000,
     "location": "Venue Venue, Berlin",
-    "coordinates": [52.52067985, 13.4164507938843],
+    "coordinates": ["52.52067985", "13.4164507938843"],
     "description": "A longer text describing the event. You can use markdown here.",
     "color": "#abcdef",
     "urls": {

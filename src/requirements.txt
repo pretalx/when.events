@@ -3,3 +3,8 @@ django-jsonfallback==2.1.2
 jsonschema==3.0.1
 psycopg2
 requests
+
+# dev
+pytest
+pytest-django
+pytest-sugar

@@ -97,10 +97,14 @@ class Event(models.Model):
         self.tags = ',' + ','.join(value) + ','
 
     def _create(self, data):
-        pass
+        self.state = 'ok'
+        self.save()
+        return self
 
     def _update(self, data):
-        pass
+        self.state = 'ok'
+        self.save()
+        return self
 
     def fetch(self):
         response = requests.get(self.data_url)

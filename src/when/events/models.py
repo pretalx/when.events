@@ -1,15 +1,15 @@
 import pytz
 import requests
-from django.db import models
-from django.utils.translation import ugettext_lazy as _
-from jsonfallback.fields import FallbackJSONField
-from jsonschema import validate
 from django.contrib.auth.models import (
     AbstractBaseUser,
     BaseUserManager,
     PermissionsMixin,
 )
+from django.db import models
 from django.utils.timezone import now
+from django.utils.translation import ugettext_lazy as _
+from jsonfallback.fields import FallbackJSONField
+from jsonschema import validate
 
 from when import schema
 
@@ -42,15 +42,15 @@ class Event(models.Model):
     is_accessible_for_free = models.BooleanField(
         default=False, verbose_name=_("Is this event free?")
     )
-    languages = models.CharField(max_length=200, null=True, verbose_name=_("Languages"))  # Format: ,en,de,. Use 'language_list' property for access.
+    languages = models.CharField(
+        max_length=200, null=True, verbose_name=_("Languages")
+    )  # Format: ,en,de,. Use 'language_list' property for access.
     maximum_attendee_capacity = models.PositiveIntegerField(
         null=True, verbose_name=_("Maximum attendee capacity")
     )
-    location = models.CharField(
-        max_length=200, null=True, verbose_name=_("Location")
-    )
+    location = models.CharField(max_length=200, null=True, verbose_name=_("Location"))
     coordinates = models.CharField(
-        max_length=50, null=True, verbose_name=_('Coordinates')
+        max_length=50, null=True, verbose_name=_("Coordinates")
     )
     description = models.TextField(null=True, verbose_name=_("Description"))
     color = models.CharField(max_length=6, null=True, verbose_name=_("Color"))
@@ -61,7 +61,9 @@ class Event(models.Model):
     social_media_accounts = FallbackJSONField(null=True, default=dict)
     tooling = FallbackJSONField(null=True)
 
-    tags = models.TextField(null=True)  # Contains topics, locations, …. Use tag_list to access it.
+    tags = models.TextField(
+        null=True
+    )  # Contains topics, locations, …. Use tag_list to access it.
 
     ###### INTERNAL FIELDS ######
     data_url = models.URLField()
@@ -82,27 +84,27 @@ class Event(models.Model):
 
     @property
     def language_list(self):
-        return (self.lanugages or '').strip(',').split(',')
+        return (self.lanugages or "").strip(",").split(",")
 
     @language_list.setter
     def language_list(self, value):
-        self.languages = ',' + ','.join(value) + ','
+        self.languages = "," + ",".join(value) + ","
 
     @property
     def tag_list(self):
-        return (self.tags or '').strip(',').split(',')
+        return (self.tags or "").strip(",").split(",")
 
     @tag_list.setter
     def tag_list(self, value):
-        self.tags = ',' + ','.join(value) + ','
+        self.tags = "," + ",".join(value) + ","
 
     def _create(self, data):
-        self.state = 'ok'
+        self.state = "ok"
         self.save()
         return self
 
     def _update(self, data):
-        self.state = 'ok'
+        self.state = "ok"
         self.save()
         return self
 
@@ -110,31 +112,34 @@ class Event(models.Model):
         response = requests.get(self.data_url)
         self.last_updated = now()
 
-        def fail(error, state='error'):
+        def fail(error, state="error"):
             self.state = state
-            self.last_response = {'content': response.content.decode(), 'error': error}
+            self.last_response = {"content": response.content.decode(), "error": error}
             self.save()
 
         try:
             response.raise_for_status()
         except Exception:
-            return fail(response.status_code, state='unreachable')
+            return fail(response.status_code, state="unreachable")
 
         try:
             content = response.json()
         except Exception as e:
             return fail(str(e))
 
-        if content.get('version') not in schema.VERSIONS:
-            return fail('Unsupported version. Supported versions are: ' + ', '.join(schema.VERSIONS))
+        if content.get("version") not in schema.VERSIONS:
+            return fail(
+                "Unsupported version. Supported versions are: "
+                + ", ".join(schema.VERSIONS)
+            )
 
-        used_schema = schema.get_schema(content.get('version'))
+        used_schema = schema.get_schema(content.get("version"))
         try:
             validate(content, used_schema)
         except Exception as e:
             return fail(str(e))
 
-        if self.state == 'new':
+        if self.state == "new":
             return self._create(content)
         return self._update(content)
 

@@ -1,12 +1,12 @@
 import json
-import requests
 
 import pytest
+import requests
 
 from when.events.models import Event
 
-class MockResponse:
 
+class MockResponse:
     def __init__(self, json_content, status_code=200, url=None):
         self.status_code = status_code
         self.url = url
@@ -26,31 +26,31 @@ class MockResponse:
 
 @pytest.mark.django_db
 def test_base_event(monkeypatch):
-    with open('example_event.json') as f:
+    with open("example_event.json") as f:
         example_content = json.load(f)
 
     def mock_get(url):
         return MockResponse(example_content, url=url)
 
-    monkeypatch.setattr(requests, 'get', mock_get)
+    monkeypatch.setattr(requests, "get", mock_get)
 
-    event = Event.objects.create(data_url='http://localhost')
+    event = Event.objects.create(data_url="http://localhost")
     event.fetch()
-    assert event.state == 'ok', event.last_response
+    assert event.state == "ok", event.last_response
 
 
 @pytest.mark.django_db
 def test_base_event_failure(monkeypatch):
-    with open('example_event.json') as f:
+    with open("example_event.json") as f:
         example_content = json.load(f)
 
-    example_content.pop('name')
+    example_content.pop("name")
 
     def mock_get(url):
         return MockResponse(example_content, url=url)
 
-    monkeypatch.setattr(requests, 'get', mock_get)
+    monkeypatch.setattr(requests, "get", mock_get)
 
-    event = Event.objects.create(data_url='http://localhost')
+    event = Event.objects.create(data_url="http://localhost")
     assert not event.fetch()
-    assert event.state == 'error'
+    assert event.state == "error"

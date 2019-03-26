@@ -1,3 +1,4 @@
 django==2.1.7
 django-jsonfallback==2.1.2
 psycopg2
+requests

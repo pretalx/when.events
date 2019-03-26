@@ -1,4 +1,5 @@
 import pytz
+import requests
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from jsonfallback.fields import FallbackJSONField
@@ -89,6 +90,36 @@ class Event(models.Model):
     @tag_list.setter
     def tag_list(self, value):
         self.tags = ',' + ','.join(value) + ','
+
+    def _create_from_response(self, response):
+        pass
+
+    def _update_from_response(self, response):
+        pass
+
+    def fetch(self):
+        response = requests.get(self.url)
+        self.last_updated = now()
+
+        try:
+            response.raise_for_status()
+        except Exception as e:
+            self.state = 'unreachable'
+            self.last_response = {'content': response.content.decode(), 'status_code': response.status_code}
+            self.save()
+            return
+
+        try:
+            content = response.json()
+        except Exception as e:
+            self.state = 'error'
+            self.last_response = {'content': response.content.decode(), 'error': str(e)}
+            self.save()
+            return
+
+        if self.state == 'new':
+            return self._create_from_response(response)
+        return self._update_from_response(response)
 
 
 class UserManager(BaseUserManager):

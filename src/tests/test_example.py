@@ -1,8 +1,9 @@
 import json
+import requests
 
 import pytest
 
-from when.events.models import Event, requests
+from when.events.models import Event
 
 class MockResponse:
 
@@ -17,6 +18,10 @@ class MockResponse:
     @property
     def content(self):
         return json.dumps(self._content).encode()
+
+    def raise_for_status(self):
+        if self.status_code != 200:
+            raise Exception
 
 
 @pytest.mark.django_db

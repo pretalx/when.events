@@ -3,11 +3,15 @@ import requests
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from jsonfallback.fields import FallbackJSONField
+from jsonschema import validate
 from django.contrib.auth.models import (
     AbstractBaseUser,
     BaseUserManager,
     PermissionsMixin,
 )
+from django.utils.timezone import now
+
+from when import schema
 
 
 class Event(models.Model):
@@ -91,35 +95,43 @@ class Event(models.Model):
     def tag_list(self, value):
         self.tags = ',' + ','.join(value) + ','
 
-    def _create_from_response(self, response):
+    def _create(self, data):
         pass
 
-    def _update_from_response(self, response):
+    def _update(self, data):
         pass
 
     def fetch(self):
         response = requests.get(self.url)
         self.last_updated = now()
 
+        def fail(error, state='error'):
+            self.state = state
+            self.last_response = {'content': response.content.decode(), 'error': error}
+            self.save()
+
         try:
             response.raise_for_status()
-        except Exception as e:
-            self.state = 'unreachable'
-            self.last_response = {'content': response.content.decode(), 'status_code': response.status_code}
-            self.save()
-            return
+        except Exception:
+            return fail(response.status_code, state='unreachable')
 
         try:
             content = response.json()
         except Exception as e:
-            self.state = 'error'
-            self.last_response = {'content': response.content.decode(), 'error': str(e)}
-            self.save()
-            return
+            return fail(str(e))
+
+        if content.get('version') not in schema.VERSIONS:
+            return fail('Unsupported version. Supported versions are: ' + ', '.join(schema.VERSIONS))
+
+        used_schema = schema.get_schema(content.get('version'))
+        try:
+            validate(content, used_schema)
+        except Exception as e:
+            return fail(str(e))
 
         if self.state == 'new':
-            return self._create_from_response(response)
-        return self._update_from_response(response)
+            return self._create(content)
+        return self._update(content)
 
 
 class UserManager(BaseUserManager):

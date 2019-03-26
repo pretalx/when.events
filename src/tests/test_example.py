@@ -36,3 +36,21 @@ def test_base_event(monkeypatch):
 
     event = Event.objects.create(data_url='http://localhost')
     event.fetch()
+    assert event.state == 'ok', event.last_response
+
+
+@pytest.mark.django_db
+def test_base_event_failure(monkeypatch):
+    with open('example_event.json') as f:
+        example_content = json.load(f)
+
+    example_content.pop('name')
+
+    def mock_get(url):
+        return MockResponse(example_content, url=url)
+
+    monkeypatch.setattr(requests, 'get', mock_get)
+
+    event = Event.objects.create(data_url='http://localhost')
+    assert not event.fetch()
+    assert event.state == 'error'

@@ -1,3 +1,6 @@
+import re
+from functools import partial
+
 import jsonschema
 import pytz
 import requests
@@ -10,6 +13,13 @@ from django.utils.translation import ugettext_lazy as _
 from jsonfallback.fields import FallbackJSONField
 
 from when import schema
+
+
+def decamel(name):
+    if name.lower() == name:
+        return name
+    s1 = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
+    return re.sub('([a-z0-9])([A-Z])', r'\1_\2', s1).lower()
 
 
 class Event(models.Model):
@@ -94,24 +104,46 @@ class Event(models.Model):
     def tag_list(self, value):
         self.tags = "," + ",".join(value) + ","
 
-    def _create(self, data):
-        self.state = "ok"
-        self.save()
-        return self
-
     def _update(self, data):
+        creating = self.state == 'new'
+        field_list = []
+        for field, value in data.items():
+            if field == 'version':
+                continue
+            local_name = decamel(field)
+            if hasattr(self, local_name[:-1] + '_list'):
+                local_name = local_name[:-1] + '_list'
+            if not getattr(self, local_name) == value:
+                setattr(self, local_name, value)
+                field_list += field
         self.state = "ok"
         self.save()
-        return self
+        if creating:
+            content = {'action': 'create'}
+        else:
+            content = {'action': 'update', 'fields': field_list}
+        log = Log.objects.create(
+            event=self if self.pk else None,
+            state=self.state,
+            content=content,
+            timestamp=now(),
+        )
+        return log
+
+    def _fail(self, error, state="error", content=None):
+        log = Log.objects.create(
+            event=self if self.pk else None,
+            state=state,
+            content={'content': content, 'error': error},
+            timestamp=now(),
+        )
+        self.state = state
+        self.save()
+        return log
 
     def fetch(self):
         response = requests.get(self.data_url)
-        self.last_updated = now()
-
-        def fail(error, state="error"):
-            self.state = state
-            self.last_response = {"content": response.content.decode(), "error": error}
-            self.save()
+        fail = partial(self._fail, content=response.content.decode())
 
         try:
             response.raise_for_status()

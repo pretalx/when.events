@@ -7,7 +7,6 @@
 {% block content %}
 <h1>{% trans "Documentation" %}</h1>
 
-<p>
 {% blocktrans trimmed with validator='/docs/validator' submit='/submit' log='/events/log'%}
   If you want to see your event on when.events, follow these steps:
   <ol>
@@ -19,7 +18,7 @@
   </ol>
   For debugging purposes, we provide a <a href="{{ log }}">list of recent updates and errors</a>.
 {% endblocktrans %}
-</p>
+<br>
 
 <div class="collapsible">
   <input id="collapsibleExample" class="toggle" type="checkbox">
@@ -37,12 +36,12 @@
 <div class="collapsible" id="{{ field_name }}">
   <input id="collapsible-{{ field_name }}" class="toggle" type="checkbox">
   <label for="collapsible-{{ field_name }}" class="collapse-toggle collapse-light collapse-docs">
-    <div class="docs">
+    <span class="docs">
     {{ field_name }} ({{ field.type }})
     {% if field_name in schema.required %}
       <span class="required">required</span>
     {% endif %}
-    </div>
+    </span>
   </label>
   <div class="collapsible-content">
     <div class="content-inner">

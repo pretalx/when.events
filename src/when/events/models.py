@@ -137,7 +137,10 @@ class Event(models.Model):
         try:
             validate(content, used_schema, format_checker=jsonschema.draft7_format_checker)
         except Exception as e:
-            return fail(str(e))
+            return fail({
+                'path': e.path,
+                'message': e.message,
+            })
 
         if self.state == "new":
             return self._create(content)

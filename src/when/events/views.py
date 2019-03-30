@@ -48,7 +48,10 @@ class Validator(TemplateView):
             validate(data, used_schema, format_checker=jsonschema.draft7_format_checker)
             messages.success(request, _('Looking good!'))
         except Exception as e:
-            messages.error(request, _('Invalid data: ') + e.message)
+            message = e.message
+            if e.path:
+                message += ' (in ' + ', '.join(['"{}"'.format(p) for p in e.path]) + ')'
+            messages.error(request, _('Invalid data: ') + message)
         return super().get(request)
 
 

@@ -65,8 +65,6 @@ class Event(models.Model):
 
     # INTERNAL FIELDS #
     data_url = models.URLField()
-    last_updated = models.DateTimeField(null=True)
-    last_response = FallbackJSONField(null=True)
     state = models.CharField(
         max_length=11,
         choices=(
@@ -136,13 +134,27 @@ class Event(models.Model):
             jsonschema.validate(content, used_schema, format_checker=jsonschema.draft7_format_checker)
         except Exception as e:
             return fail({
-                'path': e.path,
+                'path': [p for p in e.path],
                 'message': e.message,
             })
 
-        if self.state == "new":
-            return self._create(content)
         return self._update(content)
+
+
+class Log(models.Model):
+    event = models.ForeignKey(to=Event, on_delete=models.CASCADE, related_name='logs')
+    state = models.CharField(
+        max_length=11,
+        choices=(
+            ("new", "new"),
+            ("ok", "ok"),
+            ("unreachable", "unreachable"),
+            ("error", "error"),
+        ),
+        verbose_name=_("State"),
+    )
+    timestamp = models.DateTimeField(auto_now_add=True)
+    content = FallbackJSONField(null=True)
 
 
 class UserManager(BaseUserManager):

@@ -7,9 +7,9 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="100mm"
-   height="100mm"
-   viewBox="0 0 100 99.999997"
+   width="90.401291mm"
+   height="77.341522mm"
+   viewBox="0 0 90.40129 77.34152"
    version="1.1"
    id="svg8"
    sodipodi:docname="icon.svg"
@@ -25,6 +25,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -41,21 +42,25 @@
      inkscape:window-height="1019"
      id="namedview3924"
      showgrid="false"
-     inkscape:zoom="4.3867917"
-     inkscape:cx="114.98086"
-     inkscape:cy="293.87965"
+     inkscape:zoom="1.5509651"
+     inkscape:cx="156.4751"
+     inkscape:cy="72.81017"
      inkscape:window-x="0"
      inkscape:window-y="61"
      inkscape:window-maximized="0"
-     inkscape:current-layer="layer1" />
+     inkscape:current-layer="layer1"
+     fit-margin-top="5"
+     fit-margin-left="5"
+     fit-margin-bottom="5"
+     fit-margin-right="5" />
   <defs
      id="defs8" />
   <g
      id="layer1"
-     transform="translate(-36.097241,-79.85368)">
+     transform="translate(-40.623222,-90.009146)">
     <path
        id="rect4550"
-       d="m 45.623222,99.103365 v 62.524355 c 3.9e-5,0.39918 0.323773,0.72291 0.722952,0.72295 h 78.955386 c 0.39918,-4e-5 0.72291,-0.32377 0.72295,-0.72295 V 99.103365 h -5.04059 v -4.094219 h -8.0276 v 4.094223 l 8.0276,-4e-6 v 4.350115 h -8.0276 V 99.103369 H 90.342865 v -4.094223 h -7.946566 v 4.094224 l 7.946566,3e-6 v 4.350107 H 82.396299 V 99.10337 H 58.586824 V 95.009146 H 50.75312 v 4.094224 h 7.833704 v 4.35011 H 50.75312 v -4.35011 c -1.709966,2e-6 -3.419932,-2e-6 -5.129898,-5e-6 z m 44.010011,14.777895 7.181522,32.58835 6.797795,-32.49862 6.0216,-0.0287 -8.30631,36.85834 -8.751535,-0.0603 c 0,0 -6.483811,-31.37965 -6.568126,-30.99381 l -6.81544,31.18889 h -8.349508 l -8.685163,-36.99567 h 6.194677 l 6.853239,32.55593 7.424632,-32.68999 z"
+       d="m 45.623222,101.12452 v 60.5032 c 3.9e-5,0.39918 0.323773,0.72291 0.722952,0.72295 h 78.955386 c 0.39918,-4e-5 0.72291,-0.32377 0.72295,-0.72295 v -60.5032 h -5.04059 v -6.115374 h -13.40526 v 6.115384 l 13.40526,-10e-6 v 5.96874 h -13.40526 v -5.96873 H 93.070763 V 95.009146 H 79.789209 v 6.115384 h 13.281554 v 5.96873 H 79.789209 v -5.96873 H 63.87849 V 95.009146 H 50.75312 v 6.115384 h 13.12537 v 5.96873 H 50.75312 v -5.96873 c -1.709966,0 -3.419932,0 -5.129898,-10e-6 z m 44.010011,13.60971 7.181522,32.58835 6.797795,-32.49862 6.0216,-0.0287 -8.30631,36.85834 -8.751535,-0.0603 c 0,0 -6.483812,-31.37965 -6.568126,-30.99381 l -6.81544,31.18889 h -8.349508 l -8.685163,-36.99567 h 6.194677 l 6.853239,32.55593 7.424632,-32.68999 z"
        style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#1c3b4a;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.44561982;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cccccccccccccccccccccccccccccccccccccsccccccc" />

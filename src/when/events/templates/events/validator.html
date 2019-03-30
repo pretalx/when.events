@@ -1,0 +1,20 @@
+{% extends "events/base.html" %}
+{% load i18n %}
+
+{% block title %}Validator{% endblock %}
+
+{% block content %}
+{% if messages %}{% for message in messages %}
+    <div{% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>{{ message }}</div>
+{% endfor %}{% endif %}
+<h1>{% trans "Validator" %}</h1>
+
+<form method="post" id="validator">
+    {% csrf_token %}
+    <textarea rows=40 name="data"></textarea>
+    <button type="submit" class="btn-block">{% trans "Validate" %}</button>
+    <div class="help-text">
+        You can use our public <a href="https://raw.githubusercontent.com/pretalx/when.events/master/src/when/schema/schema-0.1.0.json?token=ACiNC18GXyPglFYFVHwcmiJXFvcTPvM2ks5cn5I8wA%3D%3D">JSON schema</a> to run the validation yourself.
+    </div>
+</form>
+{% endblock %}

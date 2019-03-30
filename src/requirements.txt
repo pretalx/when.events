@@ -6,6 +6,9 @@ jsonschema==3.0.1
 psycopg2-binary
 requests
 
+# prod
+gunicorn
+
 # dev
 pytest
 pytest-django

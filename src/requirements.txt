@@ -8,6 +8,7 @@ requests
 
 # prod
 gunicorn
+whitenoise
 
 # dev
 pytest

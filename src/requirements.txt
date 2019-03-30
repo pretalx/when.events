@@ -5,6 +5,7 @@ django-libsass==0.7
 jsonschema==3.0.1
 psycopg2-binary
 requests
+rfc3987
 
 # prod
 gunicorn

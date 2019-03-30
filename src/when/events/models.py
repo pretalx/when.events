@@ -135,7 +135,7 @@ class Event(models.Model):
 
         used_schema = schema.get_schema(content.get("version"))
         try:
-            validate(content, used_schema)
+            validate(content, used_schema, format_checker=jsonschema.draft7_format_checker)
         except Exception as e:
             return fail(str(e))
 

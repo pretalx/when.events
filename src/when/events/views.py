@@ -45,7 +45,7 @@ class Validator(TemplateView):
             return super().get(request)
         used_schema = schema.get_schema(data.get("version"))
         try:
-            validate(data, used_schema)
+            validate(data, used_schema, format_checker=jsonschema.draft7_format_checker)
             messages.success(request, _('Looking good!'))
         except Exception as e:
             messages.error(request, _('Invalid data: ') + e.message)

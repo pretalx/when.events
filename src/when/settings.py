@@ -18,10 +18,10 @@ else:
         os.chown(SECRET_FILE, os.getuid(), os.getgid())
         f.write(SECRET_KEY)
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
 ALLOWED_HOSTS = []
+DEBUG = False if os.environ.get('WHENEVENTS') else True
+if not DEBUG:
+    ALLOWED_HOSTS = ['when.events']
 
 
 # Application definition

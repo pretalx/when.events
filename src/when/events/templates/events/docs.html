@@ -1,5 +1,6 @@
 {% extends "events/base.html" %}
 {% load i18n %}
+{% load static %}
 
 {% block title %}{% trans "Documentation" %}{% endblock %}
 
@@ -33,7 +34,7 @@
 <hr>
 
 {% for field_name, field in schema.properties.items %}
-<div class="collapsible">
+<div class="collapsible" id="{{ field_name }}">
   <input id="collapsible-{{ field_name }}" class="toggle" type="checkbox">
   <label for="collapsible-{{ field_name }}" class="collapse-toggle collapse-light collapse-docs">
     <div class="docs">
@@ -93,6 +94,8 @@
     </div>
   </div>
 </div>
+
+<script src="{% static "js/docs.js" %}"></script>
 {% endfor %}
 
 {% endblock %}

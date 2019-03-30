@@ -27,7 +27,13 @@ class Docs(TemplateView):
 class Validator(TemplateView):
     template_name = 'events/validator.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['received'] = getattr(self, 'received', None)
+        return context
+
     def post(self, request):
+        self.received = request.POST.get('data')
         try:
             data = json.loads(request.POST.get('data'))
             version = data.get('version')

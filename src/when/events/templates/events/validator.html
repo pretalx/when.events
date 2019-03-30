@@ -11,7 +11,7 @@
 
 <form method="post" id="validator">
     {% csrf_token %}
-    <textarea rows=40 name="data"></textarea>
+    <textarea rows=40 name="data">{% if received %}{{ received }}{% endif %}</textarea>
     <button type="submit" class="btn-block">{% trans "Validate" %}</button>
     <div class="help-text">
         You can use our public <a href="https://raw.githubusercontent.com/pretalx/when.events/master/src/when/schema/schema-0.1.0.json?token=ACiNC18GXyPglFYFVHwcmiJXFvcTPvM2ks5cn5I8wA%3D%3D">JSON schema</a> to run the validation yourself.

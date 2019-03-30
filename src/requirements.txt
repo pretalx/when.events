@@ -1,5 +1,7 @@
 django==2.1.7
+django-compressor==2.2.*
 django-jsonfallback==2.1.2
+django-libsass==0.7
 jsonschema==3.0.1
 psycopg2-binary
 requests

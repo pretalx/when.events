@@ -1,0 +1,49 @@
+{% load compress %}{% load i18n %}{% load static %}<!DOCTYPE html>
+<html{% if request.LANGUAGE_CODE %} lang="{{ request.LANGUAGE_CODE }}"{% endif %}>
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}{% endblock %} :: when.events</title>
+    <meta name="title" content="{% block meta_title %}{% endblock %} :: when.events">
+    <meta name="description" content="A calendar for conferences and other events, including their dates, Call for Paper deadlines, locations, tags, and much more.">
+    <meta name="application-name" content="when.events">
+    <meta name="generator" content="when.events">
+    <meta name="keywords" content="schedule, talks, cfp, call for papers, conference, conferences, submissions, organizer">
+    <meta name="referrer" content="origin-when-crossorigin">
+    <meta name="robots" content="index, follow">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#1c3b4a">
+    <meta name="HandheldFriendly" content="True"/>
+
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static "img/favicon_32x32.png" %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static "img/favicon_16x16.png" %}">
+
+    {% compress css %}
+        <link rel="stylesheet" type="text/x-scss" href="{% static "scss/main.scss" %}"/>
+    {% endcompress %}
+    {% compress js %}
+        <script src="{% static "vendored/moment-with-locales.js" %}"></script>
+        <script src="{% static "vendored/moment-timezone-with-data-2012-2022.js" %}"></script>
+    {% endcompress %}
+    {% block custom_header %}{% endblock %}
+</head>
+<body>
+    <header>
+        <div>
+            <a href="/">
+                <img src="{% static "img/icon.svg" %}" title="when.events icon">
+            </a> 
+            <a href="/events">Events</a>
+        </div>
+        <div>
+            <a href="/docs">Docs</a>
+        </div>
+    </header>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+    <footer>
+    </footer>
+</body>
+</html>
+

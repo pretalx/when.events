@@ -1,5 +1,11 @@
 $brand-primary: #1c3b4a;
+$brand-light: mix(white, $brand-primary, 50) !default;
 $brand-lighter: mix(white, $brand-primary, 70) !default;
+$brand-success: #3aa57c !default;
+$brand-info: $brand-light;
+$brand-warning: #f9a557 !default;
+$brand-error: #b23e65 !default;
+
 $white: #fff !default;
 $black: #000 !default;
 $offwhite: #f8f9fa !default;
@@ -10,3 +16,5 @@ $gray-200: mix(#e9ecef, $brand-primary, 95) !default;
 $gray-300: mix(#dae0e4, $brand-primary, 90) !default;
 $gray-500: mix(#636c72, $brand-primary, 90) !default;
 $gray-800: #343a40 !default;
+
+$theme-colors: (primary: $brand-primary, success: $brand-success, info: $brand-info, warning: $brand-warning, error: $brand-error, light: $gray-100, dark: $gray-800);

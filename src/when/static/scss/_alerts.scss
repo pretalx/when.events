@@ -1,0 +1,68 @@
+.alert {
+  border-width: 2px;
+  border-style: solid;
+  padding: 16px;
+  display: flex;
+  background: $white;
+  align-items: center;
+
+  &::before {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: stretch;
+    min-width: 30px;
+    color: $white;
+    font-family: "FontAwesome";
+    font-size: 20px;
+    padding: 0.75rem 1.25rem;
+    margin: -16px;
+    margin-right: 16px;
+  }
+}
+
+.alert.alert-success::before {
+  content: "ℹ️";
+}
+
+.alert.alert-info::before {
+  content: "ℹ️";
+}
+
+.alert.alert-warning::before {
+  content: "⚠️";
+}
+
+.alert.alert-error::before {
+  content: "⚠️";
+}
+
+@each $color, $value in $theme-colors {
+  .alert-#{$color} {
+    border-color: $value;
+
+    &::before {
+      background-color: $value;
+    }
+  }
+
+  .btn-#{$color}:hover {
+    background: mix(#000, $value, 15%);
+  }
+
+  .btn-#{$color}:active {
+    background: mix(#000, $value, 25%);
+  }
+
+  .btn-outline-#{$color} {
+    font-weight: bold;
+  }
+}
+
+.alert, .btn {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.btn.btn-link {
+  box-shadow: none;
+}

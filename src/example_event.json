@@ -16,20 +16,20 @@
     "description": "A longer text describing the event. You can use markdown here.",
     "color": "#abcdef",
     "urls": {
-        "home": "",
-        "tickets": "",
-        "schedule": "",
-        "cfp": "",
-        "coc": "",
-        "recordings": "",
-        "logo": "",
-        "organizer": ""
+        "home": "https://example.org",
+        "tickets": "https://example.org",
+        "schedule": "https://example.org",
+        "cfp": "https://example.org",
+        "coc": "https://example.org",
+        "recordings": "https://example.org",
+        "logo": "https://example.org",
+        "organizer": "https://example.org"
     },
     "hashtag": "#yolocon",
     "socialMediaAccounts": {
-        "twitter": "foo",
-        "mastodon": "foo@foocon.social",
-        "instagram": "foo125691"
+        "twitter": "https://twitter.com/example",
+        "mastodon": "https://mastodon.social/@example",
+        "instagram": "https://instagram.com/example"
     },
     "tooling": {
         "tickets": "pretix",

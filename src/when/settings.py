@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'compressor',
     'when.events',
 ]
 
@@ -115,5 +116,19 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static.dist')
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
+)
+STATICFILES_DIRS = (
+    [os.path.join(BASE_DIR, 'when', 'static')]
+    if os.path.exists(os.path.join(BASE_DIR, 'when', 'static'))
+    else []
+)
+COMPRESS_ENABLED = COMPRESS_OFFLINE = not DEBUG
+COMPRESS_PRECOMPILERS = (('text/x-scss', 'django_libsass.SassCompiler'),)
 
 AUTH_USER_MODEL = 'events.User'

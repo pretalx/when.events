@@ -36,7 +36,10 @@ def test_base_event(monkeypatch):
 
     event = Event.objects.create(data_url="http://localhost")
     event.fetch()
-    assert event.state == "ok", event.last_response
+    assert event.state == "ok"
+    assert 'foo' in event.tag_list
+    assert event.name == 'Open Conference'
+    assert event.short_name == 'opencon'
 
 
 @pytest.mark.django_db
@@ -52,5 +55,5 @@ def test_base_event_failure(monkeypatch):
     monkeypatch.setattr(requests, "get", mock_get)
 
     event = Event.objects.create(data_url="http://localhost")
-    assert not event.fetch()
+    event.fetch()
     assert event.state == "error"

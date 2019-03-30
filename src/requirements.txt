@@ -1,7 +1,7 @@
 django==2.1.7
 django-jsonfallback==2.1.2
 jsonschema==3.0.1
-psycopg2
+psycopg2-binary
 requests
 
 # dev

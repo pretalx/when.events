@@ -32,7 +32,7 @@
             <a href="/">
                 <img src="{% static "img/icon.svg" %}" title="when.events icon">
             </a>
-            <a href="/events">Events</a>
+            <a href="/list">Events</a>
         </div>
         <div>
             <a href="/docs/validator">Validator</a>
@@ -40,6 +40,9 @@
         </div>
     </header>
     <main>
+        {% if messages %}{% for message in messages %}
+            <div{% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>{{ message }}</div>
+        {% endfor %}{% endif %}
         {% block content %}
         {% endblock %}
     </main>

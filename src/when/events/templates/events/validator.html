@@ -4,9 +4,6 @@
 {% block title %}Validator{% endblock %}
 
 {% block content %}
-{% if messages %}{% for message in messages %}
-    <div{% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>{{ message }}</div>
-{% endfor %}{% endif %}
 <h1>{% trans "Validator" %}</h1>
 
 <form method="post" id="validator">

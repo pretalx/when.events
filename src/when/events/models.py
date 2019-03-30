@@ -1,15 +1,13 @@
+import jsonschema
 import pytz
 import requests
 from django.contrib.auth.models import (
-    AbstractBaseUser,
-    BaseUserManager,
-    PermissionsMixin,
+    AbstractBaseUser, BaseUserManager, PermissionsMixin,
 )
 from django.db import models
 from django.utils.timezone import now
 from django.utils.translation import ugettext_lazy as _
 from jsonfallback.fields import FallbackJSONField
-from jsonschema import validate
 
 from when import schema
 
@@ -65,7 +63,7 @@ class Event(models.Model):
         null=True
     )  # Contains topics, locations, …. Use tag_list to access it.
 
-    ###### INTERNAL FIELDS ######
+    # INTERNAL FIELDS #
     data_url = models.URLField()
     last_updated = models.DateTimeField(null=True)
     last_response = FallbackJSONField(null=True)
@@ -135,7 +133,7 @@ class Event(models.Model):
 
         used_schema = schema.get_schema(content.get("version"))
         try:
-            validate(content, used_schema, format_checker=jsonschema.draft7_format_checker)
+            jsonschema.validate(content, used_schema, format_checker=jsonschema.draft7_format_checker)
         except Exception as e:
             return fail({
                 'path': e.path,

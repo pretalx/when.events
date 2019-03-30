@@ -1,10 +1,10 @@
 import json
 import os
 
+import jsonschema
 from django.contrib import messages
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import TemplateView
-from jsonschema import validate
 
 from when import schema
 
@@ -45,7 +45,7 @@ class Validator(TemplateView):
             return super().get(request)
         used_schema = schema.get_schema(data.get("version"))
         try:
-            validate(data, used_schema, format_checker=jsonschema.draft7_format_checker)
+            jsonschema.validate(data, used_schema, format_checker=jsonschema.draft7_format_checker)
             messages.success(request, _('Looking good!'))
         except Exception as e:
             message = e.message

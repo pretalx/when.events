@@ -1,6 +1,6 @@
+from django.conf.urls import url
 from django.contrib import admin
 from django.urls import path
-from django.conf.urls import include, url
 
 from .events import views
 
@@ -13,4 +13,5 @@ urlpatterns = [
     url('^feed/new$', views.EventFeed.as_view(), name='feed.new'),
     url('^feed/updates$', views.EventFeed.as_view(), name='feed.updates'),
     url('^$', views.StartPage.as_view(), name='startpage'),
+    path('admin/', admin.site.urls),
 ]

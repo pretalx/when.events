@@ -1,0 +1,98 @@
+{% extends "events/base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Documentation" %}{% endblock %}
+
+{% block content %}
+<h1>{% trans "Documentation" %}</h1>
+
+<p>
+{% blocktrans trimmed with validator='/docs/validation' submit='/submit' log='/events/log'%}
+  If you want to see your event on when.events, follow these steps:
+  <ol>
+    <li>Follow the example and documentation below to build your event.json file.</li>
+    <li>Validate your data using <a href="{{ validator }}">our validator</a>.</li>
+    <li>Put your data on your website and <a href="{{ submit }}">submit</a> the URL.<br>
+      <i>Note: If your website provides the "X-When-Events: Yes" header, the event will be imported directly. Otherwise, a moderator will have to mark it as valid.</i></li>
+    <li>We will update your event's data from the URL you provided periodically. If you want an update to be displayed immediately, you can submit your URL again.</li>
+  </ol>
+  For debugging purposes, we provide a <a href="{{ log }}">list of recent updates and errors</a>.
+{% endblocktrans %}
+</p>
+
+<div class="collapsible">
+  <input id="collapsibleExample" class="toggle" type="checkbox">
+  <label for="collapsibleExample" class="collapse-toggle">{% trans "Example" %}</label>
+  <div class="collapsible-content">
+    <div class="content-inner">
+      <pre>{{ current_example }}</pre>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+{% for field_name, field in schema.properties.items %}
+<div class="collapsible">
+  <input id="collapsible-{{ field_name }}" class="toggle" type="checkbox">
+  <label for="collapsible-{{ field_name }}" class="collapse-toggle collapse-light collapse-docs">
+    <div class="docs">
+    {{ field_name }} ({{ field.type }})
+    {% if field_name in schema.required %}
+      <span class="required">required</span>
+    {% endif %}
+    </div>
+  </label>
+  <div class="collapsible-content">
+    <div class="content-inner">
+      {{ field.description }}
+      <ul>
+        {% if field.default is not None %}
+        <li>
+          Default: <code>{{ field.default }}</code>
+        </li>
+        {% endif %}
+        {% if field.minLength is not None %}
+        <li>
+          Minimum length: {{ field.minLength }}
+        </li>
+        {% endif %}
+        {% if field.maxLength is not None %}
+        <li>
+          Maximum length: {{ field.maxLength }}
+        </li>
+        {% endif %}
+        {% if field.exclusiveMinimum is not None %}
+        <li>
+          Value must be larger than <code>{{ field.exclusiveMinimum }}</code>.
+        </li>
+        {% endif %}
+        {% if field.pattern is not None %}
+        <li>
+          Must match pattern: <code>{{ field.pattern }}</code>
+        </li>
+        {% endif %}
+        {% if field.uniqueItems is True %}
+        <li>
+          Should only contain unique items.
+        </li>
+        {% endif %}
+        {% if field.items.type %}
+        <li>
+          Items should be of type <code>{{ field.items.type }}</code>.
+          {% if field.items.pattern %}They must match the pattern <code>{{ field.items.pattern }}</code>.{% endif %}
+        </li>
+        {% endif %}
+        {% if field.required %}
+        <li>Required properties: <code>{{ field.required }}</code>
+        {% endif %}
+      </ul>
+        {% if field.examples %}
+          <pre>{% if field.type == 'string' %}"{% endif %}{{ field.examples.0 }}{% if field.type == 'string' %}"{% endif %}</pre>
+        {% endif %}
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+{% endblock %}

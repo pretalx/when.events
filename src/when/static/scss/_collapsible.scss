@@ -1,0 +1,103 @@
+@import "_fonts";
+
+.collapsible {
+  input[type='checkbox'] {
+    display: none;
+  }
+  label {
+    display: block;
+
+    font-weight: bold;
+    font-family: monospace;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 1rem;
+    cursor: pointer;
+    border-radius: 7px;
+    transition: all 0.25s ease-out;
+
+    color: white;
+    background: $brand-primary;
+
+    &.collapse-light {
+      color: $brand-primary;
+      background: $white;
+      border: 1px solid $brand-primary;
+    }
+
+    &.collapse-docs {
+      text-align: left;
+      text-transform: none;
+      .docs {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        .required {
+          background: $brand-primary;
+          border-radius: 4px;
+          padding: 4px;
+          color: white;
+        }
+      }
+      &::before {
+        display: none;
+      }
+    }
+
+    &:hover {
+      color: $brand-lighter;
+    }
+    &.collapse-light:hover {
+      color: $brand-light;
+    }
+
+    &::before {
+      content: ' ';
+      display: inline-block;
+
+      border-top: 5px solid transparent;
+      border-bottom: 5px solid transparent;
+      border-left: 5px solid currentColor;
+
+      vertical-align: middle;
+      margin-right: .7rem;
+      transform: translateY(-2px);
+
+      transition: transform .2s ease-out;
+    }
+  }
+  .collapsible-content {
+    max-height: 0px;
+    overflow: hidden;
+
+    transition: max-height .25s ease-in-out;
+    .content-inner {
+      background: $gray-100;
+      border-bottom: 1px solid $gray-300;
+
+      border-bottom-left-radius: 7px;
+      border-bottom-right-radius: 7px;
+      padding: .5rem 1rem;
+    }
+    pre {
+      background-color: white;
+      padding: 4px 8px;
+    }
+    code {
+      background-color: white;
+      padding: 1px 2px;
+    }
+  }
+  .toggle:checked + .collapse-toggle {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+
+    &::before {
+      transform: rotate(90deg) translateX(-3px);
+    }
+    &+ .collapsible-content {
+      max-height: 100%;
+    }
+  }
+}

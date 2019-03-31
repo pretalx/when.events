@@ -89,7 +89,9 @@ button, .btn {
   flex-direction: column;
   flex-grow: 1;
   input {
-    text-align: center
+    text-align: center;
+    font-size: 16px;
+    padding: 8px;
   }
   .or-separator {
     margin: 16px auto;

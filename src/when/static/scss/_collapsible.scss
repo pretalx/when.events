@@ -15,7 +15,6 @@
     padding: 1rem;
     cursor: pointer;
     border-radius: 7px;
-    transition: all 0.25s ease-out;
 
     color: white;
     background: $brand-primary;
@@ -64,14 +63,12 @@
       margin-right: .7rem;
       transform: translateY(-2px);
 
-      transition: transform .2s ease-out;
     }
   }
   .collapsible-content {
     max-height: 0px;
     overflow: hidden;
 
-    transition: max-height .25s ease-in-out;
     .content-inner {
       background: $gray-100;
       border-bottom: 1px solid $gray-300;

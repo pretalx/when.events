@@ -115,7 +115,7 @@ class Event(models.Model):
                 local_name = local_name[:-1] + '_list'
             if not getattr(self, local_name) == value:
                 setattr(self, local_name, value)
-                field_list += field
+                field_list.append(field)
         self.state = "ok"
         self.save()
         if creating:

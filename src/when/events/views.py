@@ -5,7 +5,7 @@ import jsonschema
 from django.contrib import messages
 from django.shortcuts import redirect
 from django.utils.translation import ugettext_lazy as _
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
 
 from when import schema
 from when.events.models import Event, Log
@@ -57,8 +57,11 @@ class Validator(TemplateView):
         return super().get(request)
 
 
-class LogList(TemplateView):
+class LogList(ListView):
     template_name = 'events/log.html'
+    queryset = Log.objects.order_by('-timestamp')
+    paginate_by = 100
+    context_object_name = 'logs'
 
 
 class EventList(TemplateView):

@@ -1,0 +1,40 @@
+{% extends "events/base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}Recently Updated Events{% endblock %}
+
+{% block content %}
+<h1>{% trans "Recently updated events" %}</h1>
+
+{% for log in logs %}{% if log.state != 'ok' or log.content.fields %}
+<div class="collapsible" id="log-{{ log.id }}" class="log-{{ log.state }}">
+  <input id="collapsible-{{ log.id }}" class="toggle" type="checkbox">
+  <label for="collapsible-{{ log.id }}" class="collapse-toggle collapse-light collapse-docs">
+    <span class="log">
+        {% if log.state == 'new' %}
+        New event registered
+        {% elif log.state == 'ok' %}
+        {{ log.event.name }} updated
+        {% elif log.event.name %}
+        Error updating {{ log.event.name }}
+        {% else %}
+        Error importing new event
+        {% endif %}
+    </span>
+  </label>
+  <div class="collapsible-content">
+    <div class="content-inner">
+        {% if log.state == 'new' %}
+        <a href="{{ log.event.data_url }}">Event registered</a>.
+        {% elif log.state == 'ok' %}
+        Updated fields: <code>{{ log.content.fields }}</code> from <a href="{{ log.event.data_url }}">here</a>.
+        {% else %}
+        Error updating event: <code>{{ log.content.error }}</code>
+        {% endif %}
+    </div>
+  </div>
+</div>
+{% endif %}{% endfor %}
+<script src="{% static "js/collapsible.js" %}"></script>
+{% endblock %}

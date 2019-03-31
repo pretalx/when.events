@@ -83,6 +83,8 @@ class StartPage(TemplateView):
         event, created = Event.objects.get_or_create(data_url=url)
         if created:
             Log.objects.create(event=event, state='new')
+            event.needs_review = bool(request.headers.get('X_WHEN_EVENTS'))
+            event.save()
         log = event.fetch()
         if event.state != 'ok':
             messages.error(request, _('There was an error when fetching the event.'))

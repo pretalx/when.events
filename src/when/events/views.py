@@ -85,6 +85,9 @@ class StartPage(TemplateView):
             Log.objects.create(event=event, state='new')
             event.needs_review = bool(request.headers.get('X_WHEN_EVENTS'))
             event.save()
+        elif event.needs_review and request.headers.get('X_WHEN_EVENTS'):
+            event.needs_review = False
+            event.save()
         log = event.fetch()
         if event.state != 'ok':
             messages.error(request, _('There was an error when fetching the event.'))

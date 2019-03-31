@@ -88,6 +88,9 @@ button, .btn {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  input {
+    text-align: center
+  }
   .or-separator {
     margin: 16px auto;
     &:before, &:after {

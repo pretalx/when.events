@@ -1,0 +1,13 @@
+{% extends "events/base.html" %}
+
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    <div id="main">
+        <a href="/list" class="btn btn-outline">Browse events</a>
+        <div class="or-separator">or</div>
+        <input type="url" name="url" class="block" placeholder="https://example.org/event.json" required>
+        <button method="post" class="btn btn-info">Submit your event</button>
+    </div>
+</form>
+{% endblock %}

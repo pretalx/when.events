@@ -44,22 +44,66 @@ main {
   textarea {
     width: 100%
   }
-  button {
-    width: 100%;
-    background: $brand-primary;
-    color: white;
-    margin-left: auto;
-    margin-right: auto;
-    border: none;
-    text-transform: uppercase;
-    height: 40px;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 16px;
-  }
   .help-text {
     color: $gray-500;
     font-size: 12px;
     text-align: center;
+  }
+}
+button, .btn {
+  width: 100%;
+  background: $brand-primary;
+  color: white;
+  margin-left: auto;
+  margin-right: auto;
+  border: none;
+  text-transform: uppercase;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+  &:hover {
+    color: $brand-primary;
+    border: 2px solid $brand-primary;
+    background: white;
+  }
+}
+.btn-outline {
+  border: 2px solid $brand-primary;
+  color: $brand-primary;
+  background: white;
+  &:hover {
+    background: $brand-primary;
+    color: white;
+  }
+}
+.block {
+  display: block;
+}
+#main {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  .or-separator {
+    margin: 16px auto;
+    &:before, &:after {
+      content: " ";
+      border-bottom: 1px solid $brand-primary;
+      border-top: 1px solid $brand-primary;
+      width: 300px;
+      height: 6px;
+      position: absolute;
+      margin-top: 8px;
+    }
+    &:before {
+      left: calc(50% - 325px);
+    }
+    &:after {
+      margin-left: 16px;
+    }
   }
 }
